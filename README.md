@@ -11,6 +11,12 @@ Going forward, we no need to enable sticky session (JSESSIONID) in Load balancer
 ## Supports:
    * Apache Tomcat 7
 
+## Downloads:
+
+**Tomcat Redis Cluster Enabled Session Manager is available**
+
+https://github.com/ran-jit/TomcatRedisClusterEnabledSessionManager/releases/download/1.0/TomcatRedisSessionManager-1.0.zip
+
 
 ## Pre-requisite:
 1. jedis-3.0.0-SNAPSHOT.jar
@@ -18,7 +24,6 @@ Going forward, we no need to enable sticky session (JSESSIONID) in Load balancer
 3. commons-logging-1.1.jar
 
 ##### Note: Download all the above three jars and move it into tomcat/lib directory
-
 
 
 ####Steps to be done,
