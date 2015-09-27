@@ -38,38 +38,23 @@ public class RedisManager
 	}
 
 	public void connect() {
-		// Create and set a JedisPoolConfig
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
-		// Maximum active connections to Redis instance
 		int maxActive = Integer.parseInt(properties.getProperty(RedisConstants.MAX_ACTIVE, RedisConstants.DEFAULT_MAX_ACTIVE_VALUE));
 		poolConfig.setMaxTotal(maxActive);
-		// Tests whether connection is dead when connection
-		// retrieval method is called
 		boolean testOnBorrow = Boolean.parseBoolean(properties.getProperty(RedisConstants.TEST_ONBORROW, RedisConstants.DEFAULT_TEST_ONBORROW_VALUE));
 		poolConfig.setTestOnBorrow(testOnBorrow);
-		/* Some extra configuration */
-		// Tests whether connection is dead when returning a
-		// connection to the pool
 		boolean testOnReturn = Boolean.parseBoolean(properties.getProperty(RedisConstants.TEST_ONRETURN, RedisConstants.DEFAULT_TEST_ONRETURN_VALUE));
 		poolConfig.setTestOnReturn(testOnReturn);
-		// Number of connections to Redis that just sit there
-		// and do nothing
 		int maxIdle = Integer.parseInt(properties.getProperty(RedisConstants.MAX_ACTIVE, RedisConstants.DEFAULT_MAX_ACTIVE_VALUE));
 		poolConfig.setMaxIdle(maxIdle);
-		// Minimum number of idle connections to Redis
-		// These can be seen as always open and ready to serve
 		int minIdle = Integer.parseInt(properties.getProperty(RedisConstants.MIN_IDLE, RedisConstants.DEFAULT_MIN_IDLE_VALUE));
 		poolConfig.setMinIdle(minIdle);
-		// Tests whether connections are dead during idle periods
 		boolean testWhileIdle = Boolean.parseBoolean(properties.getProperty(RedisConstants.TEST_WHILEIDLE, RedisConstants.DEFAULT_TEST_WHILEIDLE_VALUE));
 		poolConfig.setTestWhileIdle(testWhileIdle);
-		// Maximum number of connections to test in each idle check
 		int testNumPerEviction = Integer.parseInt(properties.getProperty(RedisConstants.TEST_NUMPEREVICTION, RedisConstants.DEFAULT_TEST_NUMPEREVICTION_VALUE));
 		poolConfig.setNumTestsPerEvictionRun(testNumPerEviction);
-		// Idle connection checking period
 		long timeBetweenEviction = Long.parseLong(properties.getProperty(RedisConstants.TIME_BETWEENEVICTION, RedisConstants.DEFAULT_TIME_BETWEENEVICTION_VALUE));
 		poolConfig.setTimeBetweenEvictionRunsMillis(timeBetweenEviction);
-		// Create the jedisPool
 		String hosts = properties.getProperty(RedisConstants.HOSTS, Protocol.DEFAULT_HOST.concat(":").concat(String.valueOf(Protocol.DEFAULT_PORT)));
 		String host = null;
 		int port = 0;
@@ -83,7 +68,6 @@ public class RedisManager
 				break;
 			}
 		}
-		// Redis password.
 		String password = properties.getProperty(RedisConstants.PASSWORD);
 		if (password == null || password == "") {
 			pool = new JedisPool(poolConfig, host, port);
