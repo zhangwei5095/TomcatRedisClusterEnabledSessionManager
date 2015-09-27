@@ -69,7 +69,7 @@ public class RedisManager
 			}
 		}
 		String password = properties.getProperty(RedisConstants.PASSWORD);
-		if (password == null || password == "") {
+		if (password == null || password == "" || password.isEmpty()) {
 			pool = new JedisPool(poolConfig, host, port);
 		} else {
 			pool = new JedisPool(poolConfig, host, port, Protocol.DEFAULT_TIMEOUT, password);
