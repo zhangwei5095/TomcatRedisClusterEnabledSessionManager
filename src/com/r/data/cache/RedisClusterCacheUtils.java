@@ -26,8 +26,6 @@ public class RedisClusterCacheUtils implements ICacheUtils
 
 	private RedisClusterManager clusterManager = null;
 
-	private boolean isClusterEnabled;
-
 	RedisClusterCacheUtils(Properties properties) throws Exception {
 		try {
 			clusterManager = RedisClusterManager.createInstance(properties);
@@ -51,9 +49,7 @@ public class RedisClusterCacheUtils implements ICacheUtils
 			tries++;
 			try {
 				if (key != null && value != null) {
-					if (isClusterEnabled) {
-						clusterManager.getJedis().set(key, value);
-					}
+					clusterManager.getJedis().set(key, value);
 				}
 				sucess = true;
 			} catch (JedisClusterMaxRedirectionsException | JedisConnectionException e) {
@@ -72,9 +68,7 @@ public class RedisClusterCacheUtils implements ICacheUtils
 			tries++;
 			try {
 				if (key != null && value != null) {
-					if (isClusterEnabled) {
-						retVal = clusterManager.getJedis().setnx(key, value);
-					}
+					retVal = clusterManager.getJedis().setnx(key, value);
 				}
 				sucess = true;
 			} catch (JedisClusterMaxRedirectionsException | JedisConnectionException e) {
@@ -92,9 +86,7 @@ public class RedisClusterCacheUtils implements ICacheUtils
 		do {
 			tries++;
 			try {
-				if (isClusterEnabled) {
-					clusterManager.getJedis().expire(key, ttl);
-				}
+				clusterManager.getJedis().expire(key, ttl);
 				sucess = true;
 			} catch (JedisClusterMaxRedirectionsException | JedisConnectionException e) {
 				log.error("Jedis connection failed, retrying..." + tries);
